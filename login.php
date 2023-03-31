@@ -1,3 +1,33 @@
+<?php
+include 'assets/partials/conn.php';
+?>
+
+<?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $email = $_POST['id'];
+        $password = $_POST['password'];
+        # echo $email;
+        # echo $password;
+        $sql="Select * from cred where ID=$email";
+        $result=mysqli_query($conn,$sql);
+        $result = mysqli_fetch_row($result);
+        # echo $result;
+        # echo $sql;
+        if(is_null($result)) {
+
+        }
+        else {
+            if ($result[1] == $password) {
+                header("Location: http://localhost/DMS/admin.php");
+            }
+            else {
+                // Give Waring Wrong username or password
+                echo "Wrong cred";
+            }
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +88,7 @@
                                         </div>
                                         
                                         <div class="text-center col-12">
-                                            <button type="submit" style="margin-right: 250px;"><a href="admin.html" style="color: #fff; text-decoration: none;">Authenticate</a></button>
+                                            <button type="submit" style="margin-right: 250px;"><a href="home.html" style="color: #fff; text-decoration: none;">Authenticate</a></button>
                                         </div>
                                     </div>
                                 </form>
@@ -111,7 +141,7 @@
 				<h2><b>Login</b></h2>
 			</div>
 			<div class="card-body">
-				<form action="conn.php" method="post" role="form" class="php-email-form">
+				<form action="login.php" method="post" role="form" class="php-email-form">
 					<div class="form-group">
 						<label for="id">ID</label>
 						<input type="text" id="id" class="form-control" name="id" required/>
@@ -131,7 +161,7 @@
                         
 					</div>
 					<div class="text-center col-12" style="margin-top: 15px;">
-						<button type="submit" class="btn btn-primary w-100" value="Authenticate" name=""><a href="admin.html" style="color: #fff; text-decoration: none;">Authenticate</a>
+						<button type="submit" class="btn btn-primary w-100" value="Authenticate" name="">Authenticate
 					</div>
 				</form>
 			</div>
@@ -166,3 +196,4 @@
 </body>
 
 </html>
+
