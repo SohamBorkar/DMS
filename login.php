@@ -6,9 +6,10 @@ include 'assets/partials/conn.php';
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = $_POST['id'];
         $password = $_POST['password'];
-        # echo $email;
-        # echo $password;
-        $sql="Select * from cred where ID=$email";
+         echo $email;
+         echo $password;
+        // $sql="Select * from cred where ID=$email";
+        $sql="select * from cred";
         $result=mysqli_query($conn,$sql);
         $result = mysqli_fetch_row($result);
         # echo $result;
