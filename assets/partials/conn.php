@@ -1,5 +1,5 @@
 <?php
- echo "Trying to establish connection";
+// echo "Trying to establish connection";
 
 $server = "localhost";
 $username = "root";
@@ -13,7 +13,8 @@ $conn = mysqli_connect($server, $username, $password, $database);
 if (!$conn) {
     die("we failed to connect".mysqli_connect_error());
 }
- echo "conncetion successful and established";
+// echo "conncetion successful and established";
+
 // $stmt = $conn->prepare("insert into cred(ID, Pass) values(?, ?)");
 // $stmt->bind_param("ss", $id, $password);
 // $stmt->execute();
