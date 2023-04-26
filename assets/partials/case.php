@@ -94,6 +94,7 @@ include 'conn.php';
         <th>Associated Criminal ID</th>
         <th>Status of Case</th>
         <th>Case Registration Date/Time</th>
+        <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -130,8 +131,8 @@ include 'conn.php';
         <td>".$row["status"]."</td>
         <td>".$row["dt"]."</td>
         <td>
-        <a class='btn btn-primary' href='#' role='button'>Update</a>
-        <button class='btn btn-danger' type='submit'>Delete</button>
+        <a href=''><input type='submit' value='Update' class='btn btn-primary'></a>
+        <a href='deletecase.php?case_id=$row[case_id]'><input type='submit' value='Delete' class='btn btn-danger' onclick = 'return checkdelete()'></a>
         </td>
     </tr>";
     }
@@ -150,5 +151,11 @@ include 'conn.php';
 
 <!-- Template Main JS File -->
 <script src="js/main.js"></script>
+
+<script>
+  function checkdelete(){
+    return confirm('You really want to delete this Record?');
+  }
+</script>
 
 </body>

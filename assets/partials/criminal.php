@@ -115,8 +115,8 @@ include 'conn.php';
         <td>".$row["harm_level"]."</td>
         <td>".$row["case_id"]."</td>
         <td>
-        <a class='btn btn-primary' href='#' role='button'>Update</a>
-        <button class='btn btn-danger' type='submit'>Delete</button>
+        <a href=''><input type='submit' value='Update' class='btn btn-primary'></a>
+        <a href='deletecriminal.php?cid=$row[cid]'><input type='submit' value='Delete' class='btn btn-danger' onclick = 'return checkdelete()'></a>
         </td>
     </tr>";
     }
@@ -135,5 +135,11 @@ include 'conn.php';
 
 <!-- Template Main JS File -->
 <script src="js/main.js"></script>
+
+<script>
+  function checkdelete(){
+    return confirm('You really want to delete this Record?');
+  }
+</script>
 
 </body>
