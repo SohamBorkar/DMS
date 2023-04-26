@@ -77,6 +77,7 @@ include 'conn.php';
         <th>Previous Crime Number</th>
         <th>Harmfulness Level</th>
         <th>Associated Case ID</th>
+        <th>Actions</th>
     </tr>
   </thead>
   <tbody>

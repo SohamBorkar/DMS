@@ -104,17 +104,17 @@ include 'conn.php';
     }
 
     //reading data of each row
-    while ($row = $result->fetch_assoc()) {
+    while ($rows = $result->fetch_assoc()) {
         echo "<tr>
-        <td>".$row["pid"]."</td>
-        <td>".$row["name"]."</td>
-        <td>".$row["post"]."</td>
-        <td>".$row["dob"]."</td>
-        <td>".$row["ranking"]."</td>
-        <td>".$row["case_id"]."</td>
+        <td>".$rows["pid"]."</td>
+        <td>".$rows["name"]."</td>
+        <td>".$rows["post"]."</td>
+        <td>".$rows["dob"]."</td>
+        <td>".$rows["ranking"]."</td>
+        <td>".$rows["case_id"]."</td>
         <td>
-        <a class='btn btn-primary' href='#' role='button'>Update</a>
-        <button class='btn btn-danger' type='submit'>Delete</button>
+        <a href=''><input type='submit' value='Update' class='btn btn-primary'></a>
+        <a href='deletepolice.php?pid=$rows[pid]'><input type='submit' value='Delete' class='btn btn-danger' onclick = 'return checkdelete()'></a>
         </td>
     </tr>";
     }
@@ -134,7 +134,11 @@ include 'conn.php';
 
 <!-- Template Main JS File -->
 <script src="js/main.js"></script>
-
+<script>
+  function checkdelete(){
+    return confirm('You really want to delete this Record?');
+  }
+</script>
 </body>
 
 
