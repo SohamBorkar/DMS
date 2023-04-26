@@ -65,6 +65,7 @@ include 'conn.php';
 
       <nav id="navbar" class="navbar">
         <ul>
+          <li><a class="" style="font-size: 18px" href="/DMS/admin.php">Insert to DB</a></li>
           <li><a class="nav-link scrollto" style="font-size: 18px" href="police.php">Police</a></li>
           <li><a class="nav-link scrollto" style="font-size: 18px" href="criminal.php">Criminals</a></li>
           <li><a class="nav-link scrollto" style="font-size: 18px" href="case.php">Cases</a></li>

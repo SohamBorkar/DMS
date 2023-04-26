@@ -2,25 +2,26 @@
 // $result=0;
 session_start();
 include "db_connect.php";
-if(isset($_POST['submit'])){
-  //$username=$_POST['username'];
-  //$password=$_POST['password'];
-  //$sql="SELECT * FROM `admintable` WHERE username='$username' and password='$password'";
-  //$query=mysqli_query($conn,$sql);
 
-  //$row = mysqli_num_rows($query);
-    if($row==1){
-      echo"login succesful";
-      $_SESSION['username']=$username;
-      header('location:index.php');
-    }
-    else{
-      echo"Sorry, You are not Admin";
+// if(isset($_POST['submit'])){
+//       //$username=$_POST['username'];
+//       //$password=$_POST['password'];
+//       //$sql="SELECT * FROM `admintable` WHERE username='$username' and password='$password'";
+//       //$query=mysqli_query($conn,$sql);
+
+//       //$row = mysqli_num_rows($query);
+//     if($row==1){
+//       echo"login succesful";
+//       $_SESSION['username']=$username;
+//       header('location:index.php');
+//     }
+//     else{
+//       echo"<script>Sorry, You are not Admin</script>";
   
-      header('location:admin.php');
-    }
-  }
-
+//       header('location:admin.php');
+//     }
+//   }
+  error_reporting(0);
 ?>
 
 
@@ -62,9 +63,9 @@ if(isset($_POST['submit'])){
     <div class="container d-flex align-items-center justify-content-between ">
 
       <h1 class="logo" style="font-size: 32px"><a href="admin.php"><b>Polisys</b></a></h1>
-
       <nav id="navbar" class="navbar">
         <ul>
+          <li><a class="" style="font-size: 18px" href="admin.php">Insert to DB</a></li>
           <li><a class="nav-link scrollto" style="font-size: 18px" href="assets/partials/police.php">Police</a></li>
           <li><a class="nav-link scrollto" style="font-size: 18px" href="assets/partials/criminal.php">Criminals</a></li>
           <li><a class="nav-link scrollto" style="font-size: 18px" href="assets/partials/case.php">Cases</a></li>
@@ -97,216 +98,27 @@ if(isset($_POST['submit'])){
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
 
-<h2 class="text-center" style="margin-top: 70px;" style="margin-bottom: 1dp;">Welcome Admin to Polisys</h2>
+<h2 class="text-center" style="margin-top: 70px;" style="margin-bottom: 10dp;">Welcome Admin to Polisys</h2>
 
+<h4 class="text-center" style="margin-top: 50px; margin-bottom: 1px;">What to add in DataBase :</h4>
 
-<section id="choose" class="choose" >
-  <div class="container" data-aos="fade-up">     
-  <select class="form-select" aria-label="select" style="height: 50px">
-      <option selected style="text-align: center;">Choose to add data in Database</option>
-      <option value="1" style="text-align: center;">Case</option>
-      <option value="2" style="text-align: center;">Police</option>
-      <option value="3" style="text-align: center;">Criminal</option>
-      <option value="4" style="text-align: center;">Staff</option>
-</select>
+<section class="my-1" style="margin-top:1px">
+  <div class="col-lg-8 mt-5 mt-lg-0 text-center mx-auto" style="margin-bottom: 15px;">
+    <a href="assets/partials/addpolice.php" class="btn btn-primary btn-lg btn-block">Add Police to DataBase</a>
+  </div>
+
+  <div class="col-lg-8 mt-5 mt-lg-0 text-center mx-auto" style="margin-bottom: 15px;">
+    <a href="assets/partials/addcriminal.php" class="btn btn-primary btn-lg btn-block">Add Criminal to DataBase</a>
+  </div>
+
+  <div class="col-lg-8 mt-5 mt-lg-0 text-center mx-auto" style="margin-bottom: 15px;">
+    <a href="assets/partials/addcase.php" class="btn btn-primary btn-lg btn-block">Add Cases to DataBase</a>
+  </div>
+
+  <div class="col-lg-8 mt-5 mt-lg-0 text-center mx-auto" style="margin-bottom: 15px;">
+    <a href="assets/partials/addstaff.php" class="btn btn-primary btn-lg btn-block">Add Staff to DataBase</a>
   </div>
 </section>
-
-<p id="w"></p>  <!-- Here we keep things to print on screen. this paragraph to print will be changed accordingly below to police, criminal, etc. -->
-<script>
-	const select = document.getElementById("choose");
-    const text = document.getElementById("w");
-
-    const val = select.value;
-    select.addEventListener("change", (e)=>{
-    	if(e.target.value == "1"){
-    	text.innerHTML = `
-      <div class="col-lg-8 mt-5 mt-lg-0 text-center" >
-
-<form action="" method="post" role="form" class="">
-  <div class="row gy-2 gx-md-3">
-    <div class="form-group col-12">
-      <input type="text" name="id" class="form-control" id="id" placeholder="Type Case ID" required>
-    </div>
-    <div class="form-group col-12">
-      <input type="text" class="form-control" name="name" id="case_name" placeholder="Type Case Name" required>
-    </div>
-    <div class="form-group col-12">
-      <input type="number" class="form-control" name="policeid" id="p_id" placeholder="Type Associated Police ID" required min="100">
-    </div>
-    <div class="form-group col-12">
-      <input type="number" class="form-control" name="criminalid" id="c_id" placeholder="Type Associated Criminal ID" required min="100">
-    </div>
-    <div class="form-group col-12">
-      <input type="number" class="form-control" name="status" id="c_status" placeholder="Type Status of Case as 0 for resolved and 1 for not" required value="1" min="0" max="1">
-    </div>
-    <div class="my-3 col-12">
-      <!--<div class="loading">Loading</div> -->
-      <div class="error-message"></div>
-      <div class="sent-message">Added Successfully</div>
-    </div>
-    <div class="text-center col-12"><button type="submit" class="btn btn-primary">Add</button></div>
-  </div>
-</form>
-</div>`;
-       }
-       if(e.target.value == "2"){
-    	text.innerHTML = `
-      <div class="col-lg-8 mt-5 mt-lg-0 text-center" >
-
-<form action="" method="post" role="form" class="">
-  <div class="row gy-2 gx-md-3">
-    <div class="form-group col-12">
-      <input type="number" name="id" class="form-control" id="id" placeholder="Type Police ID" required>
-    </div>
-    <div class="form-group col-12">
-      <input type="text" class="form-control" name="name" id="police_name" placeholder="Type Name of Police" required>
-    </div>
-    <div class="form-group col-12">
-      <input type="text" class="form-control" name="policepost" id="p_post" placeholder="Type Post of Police">
-    </div>
-    <div class="form-group col-12">
-      <input type="date" class="form-control" name="date" id="c_date" placeholder="Enter Date of Birth of Police" required>
-    </div>
-    <div class="form-group col-12">
-      <input type="number" class="form-control" name="ranking" id="c_rank" placeholder="Type Rank of Police" required min="0">
-    </div>
-    <div class="form-group col-12">
-      <input type="number" class="form-control" name="ranking" id="c_rank" placeholder="Type Associated Case ID" required >
-    </div>
-    <div class="my-3 col-12">
-      <!--<div class="loading">Loading</div> -->
-      <div class="error-message"></div>
-      <div class="sent-message">Added Successfully</div>
-    </div>
-    <div class="text-center col-12"><button type="submit" class="btn btn-primary">Add</button></div>
-  </div>
-</form>
-</div>`;
-       }
-       if(e.target.value == "3"){
-    	text.innerHTML = `
-      <div class="col-lg-8 mt-5 mt-lg-0 text-center" >
-
-<form action="" method="post" role="form" class="">
-  <div class="row gy-2 gx-md-3">
-    <div class="form-group col-12">
-      <input type="number" name="id" class="form-control" id="id" placeholder="Type Criminal ID" required>
-    </div>
-    <div class="form-group col-12">
-      <input type="text" class="form-control" name="name" id="c_name" placeholder="Type Name of Criminal" required>
-    </div>
-    <div class="form-group col-12">
-      <input type="date" class="form-control" name="c_dob" id="c_dob" placeholder="Enter Date of Birth of Criminal" required min="100">
-    </div>
-    <div class="form-group col-12">
-      <input type="text" class="form-control" name="casename" id="case_iname" placeholder="Type Name of Case/ Crime Committed by Criminal" required>
-    </div>
-    <div class="form-group col-12">
-      <input type="number" class="form-control" name="previous_crimes" id="p_crimes" placeholder="Type Number of Crimes Previously Committed" required min="0">
-    </div>
-    <div class="form-group col-12">
-      <input type="number" class="form-control" name="harm_level" id="h_level" placeholder="Type Harm Level of Criminel" required min="0">
-    </div>
-    <div class="form-group col-12">
-        <input type="number" class="form-control" name="case_id" id="c_id" placeholder="Type Associated Case ID" required min="100">
-    </div>
-    <div class="my-3 col-12">
-      <!--<div class="loading">Loading</div> -->
-      <div class="error-message"></div>
-      <div class="sent-message">Added Successfully</div>
-    </div>
-    <div class="text-center col-12"><button type="submit" class="btn btn-primary" name="submit">Add</button></div>
-  </div>
-</form>
-</div>
-<?php
-if (isset($_POST['submit'])) {
-  $id = $_POST['id'];
-  $name = $_POST['name'];
-  $dob = $_POST['c_dob'];
-  $case_n = $_POST['casename'];
-  $previous_c = $_POST['previous_crimes'];
-  $harm_l = $_POST['harm_level'];
-  $case_id = $_POST['case_id'];
-
-  // Prepare the statement
-  $stmt = $conn->prepare("INSERT INTO criminal (id, name, dob, case_n, previous_c, harm_l, case_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("isdsiii", $id, $name, $dob, $case_n, $previous_c, $harm_l, $case_id);
-
-  // Execute the statement
-  $stmt->execute();
-
-  // Check if the statement was executed successfully
-  if ($stmt->affected_rows > 0) {
-    echo "<script> alert('Staff Member Added Successfully');</script>";
-  } else {
-    echo "Error: " . $stmt->error;
-  }
-
-  // Close the statement and connection
-  $stmt->close();
-  $conn->close();
-}
-?>
-`;
-       }
-
-       if(e.target.value == "4"){
-    	text.innerHTML = `
-      <div class="col-lg-8 mt-5 mt-lg-0 text-center" >
-
-<form action="" method="post" role="form" class="">
-  <div class="row gy-2 gx-md-3">
-    <div class="form-group col-12">
-      <input type="number" class="form-control" name="staffid" id="s_id" placeholder="Type Associated Staff ID">
-    </div>
-    <div class="form-group col-12">
-      <input type="text" class="form-control" name="name" id="s_name" placeholder="Type Name of Staff Member" required>
-    </div>
-    <div class="form-group col-12">
-      <input type="text" class="form-control" name="work" id="s_work" placeholder="Type Work of Staff Member" required>
-    </div>
-    <div class="my-3 col-12">
-      <!--<div class="loading">Loading</div> -->
-      <div class="error-message"></div>
-      <div class="sent-message">Added Successfully</div>
-    </div>
-    <div class="text-center col-12"><button type="submit" class="btn btn-primary" name="submit">Add</button></div>
-  </div>
-</form>
-</div>
-
-<?php
-if (isset($_POST['submit'])) {
-  $id = $_POST['staffid'];
-  $name = $_POST['name'];
-  $work = $_POST['work'];
-
-  // Prepare the statement
-  $stmt = $conn->prepare("INSERT INTO staff (id, name, work) VALUES (?, ?, ?)");
-  $stmt->bind_param("iss", $id, $name, $work);
-
-  // Execute the statement
-  $stmt->execute();
-
-  // Check if the statement was executed successfully
-  if ($stmt->affected_rows > 0) {
-    echo "<script> alert('Staff Member Added Successfully');</script>";
-  } else {
-    echo "Error: " . $stmt->error;
-  }
-
-  // Close the statement and connection
-  $stmt->close();
-  $conn->close();
-}
-?>
-`;
-       }
-    })
-    
-</script>
 
  <!-- Vendor JS Files -->
  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
