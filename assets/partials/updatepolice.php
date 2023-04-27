@@ -103,7 +103,7 @@ $row = $data->fetch_assoc();                        // check name of variable wh
     </div>
     <div class="form-group col-12" style="margin-bottom:18px">
       <label style="margin-bottom:5px">Enter the Date of Birth of the Police</label>
-      <input type="date" value="<?php echo $row['dob']; ?>"class="form-control" name="datepolice" id="p_date" placeholder="Enter Date of Birth of Police" required>
+      <input type="date" value="<?php echo $row['dob']; ?>"class="form-control" name="datepolice" id="p_date" placeholder="Enter Date of Birth of Police" min="1900-01-01" max="2005-01-01" required>
     </div>
     <div class="form-group col-12" style="margin-bottom:18px">
       <label style="margin-bottom:5px">Enter the Rank of the Police</label>

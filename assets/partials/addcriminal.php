@@ -90,7 +90,7 @@ include "conn.php";
     </div>
     <div class="form-group col-12" style="margin-bottom:18px">
       <label style="margin-bottom:5px">Enter Date of Birth of the Criminal</label>
-      <input type="date" class="form-control" name="c_dob" id="cri_dob" placeholder="Enter Date of Birth of Criminal" required min="1900-01-01" max="echo date('2005-01-01')" required>
+      <input type="date" class="form-control" name="c_dob" id="cri_dob" placeholder="Enter Date of Birth of Criminal" min="1900-01-01" max="2005-01-01" required>
     </div>
     <div class="form-group col-12" style="margin-bottom:18px">
       <label style="margin-bottom:5px">Enter the Name of the Crime/ Case that has been done by the Criminal</label>
