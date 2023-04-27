@@ -1,9 +1,17 @@
-
 <?php
 session_start();
 include "conn.php";
 //include "db_connect.php";
   error_reporting(0);
+?>
+
+<?php  
+$id = $_GET['id'];                                  // it should match with respective .php file from where data is coming
+$query = "SELECT * FROM `criminal` WHERE cid = '$id'";    // 'case_id' after where word should match with name of column in table
+$data = mysqli_query($conn, $query);
+
+$row = $data->fetch_assoc();                        // check name of variable where query is executing in the respective .php file. Here in respective .php file, $data is used for query execution. So we decleared $row of respective .php file to retrive data of the executed query stored in $data
+// above line is used to get data in format of array.   
 ?>
 
 <!DOCTYPE html>
@@ -73,55 +81,65 @@ include "conn.php";
 
 <!-- Template Main JS File -->
 <script src="../assets/js/main.js"></script>
-<div style="margin-bottom: 85px;"><h2 class="text-center" style="margin-top: 70px;" >Add Case to DataBase</h2>
+<div style="margin-bottom: 85px;"><h2 class="text-center" style="margin-top: 70px;" >Update Criminal to DataBase</h2>
 </div>
 
-    
 <div class="col-lg-8 mt-5 mt-lg-0 mx-auto" >
 
 <form action="" method="post" role="form" class="">
   <div class="row gy-2 gx-md-3">
     <div class="form-group col-12" style="margin-bottom:18px">
-      <label style="margin-bottom:5px">Enter Case ID</label>
-      <input type="text" name="id" class="form-control" id="id" placeholder="Type Case ID" required>
+      <label style="margin-bottom:5px">Enter the ID of the Criminal</label>
+      <input type="number" value="<?php echo $row['cid']; ?>" name="id" class="form-control" id="id" placeholder="Type Criminal ID" required>
     </div>
     <div class="form-group col-12" style="margin-bottom:18px">
-      <label style="margin-bottom:5px">Enter Case Name</label>
-      <input type="text" name="name" class="form-control"  id="case_name" placeholder="Type Case Name" required>
+      <label style="margin-bottom:5px">Enter the Name of the Criminal</label>
+      <input type="text" value="<?php echo $row['name']; ?>" class="form-control" name="name" id="c_name" placeholder="Type Name of Criminal" required>
     </div>
     <div class="form-group col-12" style="margin-bottom:18px">
-      <label style="margin-bottom:5px">Enter Associated Police ID</label>
-      <input type="number" name="policeid" class="form-control" id="p_id" placeholder="Type Associated Police ID" required min="100">
+      <label style="margin-bottom:5px">Enter Date of Birth of the Criminal</label>
+      <input type="date" value="<?php echo $row['dob']; ?>" class="form-control" name="c_dob" id="cri_dob" placeholder="Enter Date of Birth of Criminal" required min="1900-01-01" max="echo date('2005-01-01')" required>
     </div>
     <div class="form-group col-12" style="margin-bottom:18px">
-      <label style="margin-bottom:5px">Enter Associated Criminal ID</label>
-      <input type="number" name="criminalid" class="form-control" id="c_id" placeholder="Type Associated Criminal ID" required min="100">
+      <label style="margin-bottom:5px">Enter the Name of the Crime/ Case that has been done by the Criminal</label>
+      <input type="text" value="<?php echo $row['c_name']; ?>" class="form-control" name="casename" id="case_iname" placeholder="Type Name of Case/ Crime Committed by Criminal" required>
+    </div>
+    <div class="form-group col-12" style="margin-bottom:18px">
+      <label style="margin-bottom:5px">Enter the Number of Crimes a Criminal has been done before</label>
+      <input type="number" value="<?php echo $row['prev_crimes']; ?>" class="form-control" name="previous_crimes" id="p_crimes" placeholder="Type Number of Crimes Previously Committed" required min="0">
+    </div>
+    <div class="form-group col-12" style="margin-bottom:18px">
+      <label style="margin-bottom:5px">Enter the Harm Level of the Criminal according to Crimes Previously Committed</label>
+      <input type="number" value="<?php echo $row['harm_level']; ?>" class="form-control" name="harm_level" id="h_level" placeholder="Type Harm Level of Criminal" required min="0">
     </div>
     <div class="form-group col-12">
-      <label style="margin-bottom:5px">Enter Status of the Case  (0 and 1 for resolved and unresolved respectively)</label>
-      <input type="number" name="status" class="form-control" id="c_status" placeholder="Type Status of Case as 0 for resolved and 1 for not" required value="1" min="0" max="1">
+      <label style="margin-bottom:5px">Enter the Associated Case ID</label>
+      <input type="number" value="<?php echo $row['case_id']; ?>" class="form-control" name="case_id" id="c_id" placeholder="Type Associated Case ID" required min="100">
     </div>
     <div class="my-3 col-12">
       <!--<div class="loading">Loading</div> -->
       <div class="error-message"></div>
     </div>
-    <div class="text-center col-12"><button type="submit" name="submit" class="btn btn-primary btn-lg btn-block">Add</button></div>
+    <div class="text-center col-12"><button type="submit" class="btn btn-primary btn-lg btn-block" name="update">Update Criminal</button></div>
   </div>
 </form>
 </div>
+
 <?php
   error_reporting(0);
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['update'])) {
   $id = $_POST['id'];
   $name = $_POST['name'];
-  $plsid = $_POST['policeid'];
-  $criid = $_POST['criminalid'];
-  $status = $_POST['status'];
+  $dob = $_POST['c_dob'];
+  $case_n = $_POST['casename'];
+  $previous_c = $_POST['previous_crimes'];
+  $harm_l = $_POST['harm_level'];
+  $case_id = $_POST['case_id'];
 
   // Prepare the statement
-  $stmt = $conn->prepare("INSERT INTO `case` (case_id, case_name, pid, cid, status) VALUES (?, ?, ?, ?, ?)");
-  $stmt->bind_param("isiii", $id, $name, $plsid, $criid, $status);
+  $stmt = $conn->prepare("UPDATE `criminal` SET `name`=?, `dob`=?, `c_name`=?, `prev_crimes`=?, `harm_level`=?, `case_id`=? WHERE `cid`='$id'");
+  $stmt->bind_param("ssssii", $name, $dob, $case_n, $previous_c, $harm_l, $case_id);
 
   // Execute the statement
   $stmt->execute();
@@ -129,9 +147,14 @@ if (isset($_POST['submit'])) {
 
   // Check if the statement was executed successfully
   if ($stmt->affected_rows > 0) {
-    echo "<script> alert('Case Added Successfully');</script>";
-  } else {
-    echo "Error: " . $stmt->error;
+    echo "<script> alert('Updated Criminal Successfully');</script>";
+    ?>
+    <meta http-equiv="refresh"content = "0; url=http://localhost/DMS/assets/partials/criminal.php"/>
+    <?php  
+    } 
+    else {
+    echo "Error: ". $stmt->error;
+    echo "<script> alert('Failed to Update Criminal');</script>";
   }
 
   // Close the statement and connection
@@ -140,9 +163,9 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
-<br>
-<br>   
 
+<br>
+<br>
 </script>
 
 </body>

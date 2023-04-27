@@ -115,7 +115,7 @@ include 'conn.php';
         <td>".$row["harm_level"]."</td>
         <td>".$row["case_id"]."</td>
         <td>
-        <a href=''><input type='submit' value='Update' class='btn btn-primary'></a>
+        <a href='updatecriminal.php?id=$row[cid]'><input type='submit' value='Update' class='btn btn-primary'></a>
         <a href='deletecriminal.php?cid=$row[cid]'><input type='submit' value='Delete' class='btn btn-danger' onclick = 'return checkdelete()'></a>
         </td>
     </tr>";

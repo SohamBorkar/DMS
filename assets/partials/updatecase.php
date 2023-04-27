@@ -82,7 +82,7 @@ $row = $data->fetch_assoc();                        // check name of variable wh
 
 <!-- Template Main JS File -->
 <script src="../assets/js/main.js"></script>
-<div style="margin-bottom: 85px;"><h2 class="text-center" style="margin-top: 70px;" >Add Case to DataBase</h2>
+<div style="margin-bottom: 85px;"><h2 class="text-center" style="margin-top: 70px;" >Update Case to DataBase</h2>
 </div>
 
     
