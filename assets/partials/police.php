@@ -1,8 +1,4 @@
 <?php
-echo "police .php file";
-?>
-
-<?php
 include 'conn.php';
 ?>
 
@@ -113,7 +109,7 @@ include 'conn.php';
         <td>".$rows["ranking"]."</td>
         <td>".$rows["case_id"]."</td>
         <td>
-        <a href=''><input type='submit' value='Update' class='btn btn-primary'></a>
+        <a href='updatepolice.php?id=$rows[pid]'><input type='submit' value='Update' class='btn btn-primary'></a>
         <a href='deletepolice.php?pid=$rows[pid]'><input type='submit' value='Delete' class='btn btn-danger' onclick = 'return checkdelete()'></a>
         </td>
     </tr>";
