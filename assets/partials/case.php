@@ -22,8 +22,6 @@ include 'conn.php';
     }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -131,7 +129,8 @@ include 'conn.php';
         <td>".$row["status"]."</td>
         <td>".$row["dt"]."</td>
         <td>
-        <a href=''><input type='submit' value='Update' class='btn btn-primary'></a>
+        
+        <a href='updatecase.php?id=$row[case_id]'><input type='submit' value='Update' class='btn btn-primary'></a>
         <a href='deletecase.php?case_id=$row[case_id]'><input type='submit' value='Delete' class='btn btn-danger' onclick = 'return checkdelete()'></a>
         </td>
     </tr>";

@@ -7,12 +7,13 @@ include "conn.php";
 
 <?php  
 $id = $_GET['id'];                                  // it should match with respective .php file from where data is coming
-$query = "SELECT * FROM staff WHERE id = '$id'";    // 'id' after where word should match with name of column in table
+$query = "SELECT * FROM `case` WHERE case_id = '$id'";    // 'case_id' after where word should match with name of column in table
 $data = mysqli_query($conn, $query);
 
 $row = $data->fetch_assoc();                        // check name of variable where query is executing in the respective .php file. Here in respective .php file, $data is used for query execution. So we decleared $row of respective .php file to retrive data of the executed query stored in $data
 // above line is used to get data in format of array.   
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,61 +82,78 @@ $row = $data->fetch_assoc();                        // check name of variable wh
 
 <!-- Template Main JS File -->
 <script src="../assets/js/main.js"></script>
-<div style="margin-bottom: 85px;"><h2 class="text-center" style="margin-top: 70px;" >Edit Staff Member details from DataBase</h2>
+<div style="margin-bottom: 85px;"><h2 class="text-center" style="margin-top: 70px;" >Add Case to DataBase</h2>
 </div>
 
-<div class="col-lg-8 mt-5 mt-lg-0 mx-auto" style="margin-top:200px;">
-  <form action="" method="post" role="form" class="">
-    <div class="row gy-2 gx-md-3">
-      <div class="form-group col-12" style="margin-bottom: 18px">
-        <label style="margin-bottom:5px">Enter the ID of the Staff Member</label>
-        <input type="number" value="<?php echo $row['id']; ?>" class="form-control" name="staffid" id="s_id" placeholder="Type Associated Staff ID">
-      </div>                <!-- add column name in the square bracket above -->
-      <div class="form-group col-12" style="margin-bottom: 18px">
-        <label style="margin-bottom:5px">Enter the Name of the Staff Member</label>
-        <input type="text" value="<?php echo $row['name']; ?>" class="form-control" name="name" id="s_name" placeholder="Type Name of Staff Member" required>
-      </div>            <!-- add column name in the square bracket above -->
-      <div class="form-group col-12">
-        <label style="margin-bottom:5px">Enter the Work of the Staff Member</label>
-        <input type="text" value="<?php echo $row['work']; ?>" class="form-control" name="work" id="s_work" placeholder="Type Work of Staff Member" required>
-      </div>            <!-- add column name in the square bracket above -->        
-      <div class="my-3 col-12">
-        <!--<div class="loading">Loading</div> -->
-        <div class="error-message"></div>
-      </div>
-      <div class="text-center col-12"><button type="submit" name="update" class="btn btn-primary btn-lg btn-block">Update Staff Member</button></div>
+    
+<div class="col-lg-8 mt-5 mt-lg-0 mx-auto" >
+
+<form action="" method="post" role="form" class="">
+  <div class="row gy-2 gx-md-3">
+    <div class="form-group col-12" style="margin-bottom:18px">
+      <label style="margin-bottom:5px">Enter Case ID</label>
+      <input type="text" value="<?php echo $row['case_id']; ?>" name="id" class="form-control" id="id" placeholder="Type Case ID" required>
     </div>
-  </form>
+    <div class="form-group col-12" style="margin-bottom:18px">
+      <label style="margin-bottom:5px">Enter Case Name</label>
+      <input type="text" value="<?php echo $row['case_name']; ?>" name="name" class="form-control"  id="case_name" placeholder="Type Case Name" required>
+    </div>
+    <div class="form-group col-12" style="margin-bottom:18px">
+      <label style="margin-bottom:5px">Enter Associated Police ID</label>
+      <input type="number" value="<?php echo $row['pid']; ?>" name="policeid" class="form-control" id="p_id" placeholder="Type Associated Police ID" required min="100">
+    </div>
+    <div class="form-group col-12" style="margin-bottom:18px">
+      <label style="margin-bottom:5px">Enter Associated Criminal ID</label>
+      <input type="number" value="<?php echo $row['cid']; ?>" name="criminalid" class="form-control" id="c_id" placeholder="Type Associated Criminal ID" required min="100">
+    </div>
+    <div class="form-group col-12">
+      <label style="margin-bottom:5px">Enter Status of the Case  (0 and 1 for resolved and unresolved respectively)</label>
+      <input type="number" value="<?php echo $row['status']; ?>" name="status" class="form-control" id="c_status" placeholder="Type Status of Case as 0 for resolved and 1 for not" required value="1" min="0" max="1">
+    </div>
+    <div class="my-3 col-12">
+      <!--<div class="loading">Loading</div> -->
+      <div class="error-message"></div>
+    </div>
+    <div class="text-center col-12"><button type="submit" name="update" class="btn btn-primary btn-lg btn-block">Add</button></div>
+  </div>
+</form>
 </div>
+
 
 <?php
-error_reporting(0);
+  error_reporting(0);
+
 if (isset($_POST['update'])) {
-  $id = $_POST['staffid'];
+  $id = $_POST['id'];
   $name = $_POST['name'];
-  $work = $_POST['work'];
+  $plsid = $_POST['policeid'];
+  $criid = $_POST['criminalid'];
+  $status = $_POST['status'];
+
   // Prepare the statement
-  $stmt = $conn->prepare("UPDATE `staff` SET `name`=?, `work`=? WHERE `id`='$id'");  
-  $stmt->bind_param("ss", $name, $work);
+  $stmt = $conn->prepare("UPDATE `case` SET `case_name`=?, `pid`=?, `cid`=?, `status`=? WHERE `case_id`='$id'");
+  $stmt->bind_param("siii", $name, $plsid, $criid, $status);
+
   // Execute the statement
   $stmt->execute();
   $stmt->store_result();
+
   // Check if the statement was executed successfully
   if ($stmt->affected_rows > 0) {
-    echo "<script> alert('Updated Staff Member Successfully');</script>";
+    echo "<script> alert('Updated Case Successfully');</script>";
     ?>
-    <meta http-equiv="refresh"content = "0; url=http://localhost/DMS/assets/partials/staff.php"/>
+    <meta http-equiv="refresh"content = "0; url=http://localhost/DMS/assets/partials/case.php"/>
     <?php
   } else {
-    echo "Error: " . $stmt->error;
-    echo "<script> alert('Failed to Update Staff Member');</script>";
+    echo "Error: ". $stmt->error;
+    echo "<script> alert('Failed to Update Case');</script>";
   }
+
   // Close the statement and connection
   $stmt->close();
   $conn->close();
 }
 ?>
-
     
 </script>
 
