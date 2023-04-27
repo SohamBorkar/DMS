@@ -107,7 +107,10 @@ include 'conn.php';
         <td>".$row["name"]."</td>
         <td>".$row["work"]."</td>
         <td>
-        <a href='delete.php?id=$row[id]'><input type='submit' value='Update' class='btn btn-primary'></a>
+        <!--
+        <a href='updatestaff.php?id=$row[id]&n=$row[name]&w=$row[work]'><input type='submit' value='Update' class='btn btn-primary'></a>
+        -->
+        <a href='updatestaff.php?id=$row[id]'><input type='submit' value='Update' class='btn btn-primary'></a>
         <a href='deletestaff.php?id=$row[id]'><input type='submit' value='Delete' class='btn btn-danger' onclick = 'return checkdelete()'></a>
         </td>
     </tr>";
