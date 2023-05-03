@@ -65,11 +65,12 @@ include "db_connect.php";
       <h1 class="logo" style="font-size: 32px"><a href="admin.php"><b>Polisys</b></a></h1>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="" style="font-size: 18px" href="admin.php">Insert to DB</a></li>
+          <li><a class="" style="font-size: 18px" href="admin.php">Admin</a></li>
           <li><a class="nav-link scrollto" style="font-size: 18px" href="assets/partials/police.php">Police</a></li>
           <li><a class="nav-link scrollto" style="font-size: 18px" href="assets/partials/criminal.php">Criminals</a></li>
           <li><a class="nav-link scrollto" style="font-size: 18px" href="assets/partials/case.php">Cases</a></li>
           <li><a class="nav-link scrollto" style="font-size: 18px" href="assets/partials/staff.php">Staff</a></li>
+          <li><a class="nav-link scrollto" style="font-size: 18px" href="../DMS/login.php">Log Out</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

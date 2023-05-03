@@ -23,7 +23,7 @@ include 'assets/partials/conn.php';
             }
             else {
                 // Give Waring Wrong username or password
-                echo "Wrong cred";
+                echo "<script> alert('Enter the Correct Credentials');</script>";
             }
         }
     }
